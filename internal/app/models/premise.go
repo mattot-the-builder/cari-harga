@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Premise struct {
 	PremiseCode string
 	Premise     string
@@ -7,6 +9,19 @@ type Premise struct {
 	PremiseType string
 	State       string
 	District    string
+}
+
+func printPremiseList(premiseList []Premise) {
+	for _, premise := range premiseList {
+		fmt.Println("Premise data start")
+		fmt.Println(premise.PremiseCode)
+		fmt.Println(premise.Premise)
+		fmt.Println(premise.Address)
+		fmt.Println(premise.PremiseType)
+		fmt.Println(premise.State)
+		fmt.Println(premise.District)
+		fmt.Printf("Premise data end\n\n")
+	}
 }
 
 func createPremiseList(data [][]string) []Premise {
@@ -46,4 +61,3 @@ func createPremiseList(data [][]string) []Premise {
 	}
 	return premiseList
 }
-
