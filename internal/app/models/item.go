@@ -1,5 +1,4 @@
-package main
-
+package models
 
 type Item struct {
 	ItemCode          string
@@ -9,7 +8,7 @@ type Item struct {
 	ItemCategory      string
 }
 
-func createItemList(data [][]string) []Item {
+func CreateItemList(data [][]string) []Item {
 	var itemList []Item
 	for i, line := range data {
 		if i > 0 {

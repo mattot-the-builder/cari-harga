@@ -1,4 +1,4 @@
-package main
+package models
 
 type PriceCatcher struct {
 	Date        string
@@ -7,7 +7,7 @@ type PriceCatcher struct {
 	Price       string
 }
 
-func createPriceCatcherList(data [][]string) []PriceCatcher {
+func CreatePriceCatcherList(data [][]string) []PriceCatcher {
 	var priceCatcherList []PriceCatcher
 	for i, line := range data {
 		if i > 0 {

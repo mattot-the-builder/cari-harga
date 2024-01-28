@@ -6,6 +6,9 @@ import (
 	"log"
 	"os"
 	"time"
+
+	"github.com/mattot-the-builder/go-csv/internal/app/controllers"
+	"github.com/mattot-the-builder/go-csv/internal/app/models"
 )
 
 func readCsvFile(fileName string) [][]string {
@@ -27,11 +30,11 @@ func readCsvFile(fileName string) [][]string {
 func main() {
 	initialTime := time.Now()
 
-	data := readCsvFile("lookup_premise.csv")
+	data := readCsvFile("data/lookup_premise.csv")
 
-	premiseList := createPremiseList(data)
+	premiseList := models.CreatePremiseList(data)
 
-	printPremiseList(premiseList)
+	controllers.PrintPremiseList(premiseList)
 
 	fmt.Printf("Total rows iterated: %v\n", len(premiseList))
 	fmt.Printf("Time taken: %v\n", time.Now().Sub(initialTime))

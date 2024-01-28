@@ -1,4 +1,4 @@
-package main
+package models
 
 import "fmt"
 
@@ -24,7 +24,7 @@ func printPremiseList(premiseList []Premise) {
 	}
 }
 
-func createPremiseList(data [][]string) []Premise {
+func CreatePremiseList(data [][]string) []Premise {
 	var premiseList []Premise
 	for i, line := range data {
 		if i > 0 {
