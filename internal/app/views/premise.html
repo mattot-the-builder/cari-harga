@@ -1,0 +1,41 @@
+{{ define "content" }}
+
+<div id="content" class="relative overflow-x-auto rounded max-w-screen-2xl mx-auto">
+	<table class="w-full text-sm text-left rtl:text-right text-gray-500">
+		<thead class="text-xs text-gray-700 uppercase bg-white">
+			<tr>
+				<th scope="col" class="px-6 py-3">
+					Premise Code
+				</th>
+				<th scope="col" class="px-6 py-3">
+					Name
+				</th>
+				<th scope="col" class="px-6 py-3">
+					Address
+				</th>
+				<th scope="col" class="px-6 py-3">
+					Type
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{ range . }}
+			<tr class="bg-white border-b">
+				<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+					{{ .PremiseCode }}
+				</th>
+				<td class="px-6 py-4">
+					{{ .Premise }}
+				</td>
+				<td class="px-6 py-4">
+					{{ .Address }}
+				</td>
+				<td class="px-6 py-4">
+					{{ .PremiseType }}
+				</td>
+			</tr>
+			{{ end }}
+		</tbody>
+	</table>
+</div>
+{{ end }}

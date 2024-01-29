@@ -1,6 +1,10 @@
 package models
 
-import "fmt"
+import (
+	"strings"
+
+	"github.com/mattot-the-builder/go-csv/internal/app/utils"
+)
 
 type Premise struct {
 	PremiseCode string
@@ -11,21 +15,27 @@ type Premise struct {
 	District    string
 }
 
-func printPremiseList(premiseList []Premise) {
-	for _, premise := range premiseList {
-		fmt.Println("Premise data start")
-		fmt.Println(premise.PremiseCode)
-		fmt.Println(premise.Premise)
-		fmt.Println(premise.Address)
-		fmt.Println(premise.PremiseType)
-		fmt.Println(premise.State)
-		fmt.Println(premise.District)
-		fmt.Printf("Premise data end\n\n")
-	}
+var premiseList []Premise
+
+func init() {
+	CreatePremiseList(utils.ReadCsvFile("data/lookup_premise.csv"))
 }
 
-func CreatePremiseList(data [][]string) []Premise {
-	var premiseList []Premise
+func GetPremiseList() []Premise {
+	return premiseList
+}
+
+func SearchPremise(keyword string) []Premise {
+	var searchResult []Premise
+	for _, premise := range premiseList {
+		if strings.Contains(premise.Premise, strings.ToUpper(keyword)) {
+			searchResult = append(searchResult, premise)
+		}
+	}
+	return searchResult
+}
+
+func CreatePremiseList(data [][]string) { 
 	for i, line := range data {
 		if i > 0 {
 			var rec Premise
@@ -59,5 +69,4 @@ func CreatePremiseList(data [][]string) []Premise {
 		}
 
 	}
-	return premiseList
 }

@@ -1,41 +1,35 @@
 package main
 
 import (
-	"encoding/csv"
-	"fmt"
 	"log"
-	"os"
-	"time"
+	"net/http"
 
-	"github.com/mattot-the-builder/go-csv/internal/app/controllers"
-	"github.com/mattot-the-builder/go-csv/internal/app/models"
+	"github.com/gorilla/mux"
+	"github.com/mattot-the-builder/go-csv/internal/app/routes"
 )
 
-func readCsvFile(fileName string) [][]string {
-	f, err := os.Open(fileName)
-	if err != nil {
-		log.Println("Error opening file ", err)
-	}
-
-	defer f.Close()
-
-	csvReader := csv.NewReader(f)
-	data, err := csvReader.ReadAll()
-	if err != nil {
-		log.Println("Error reading csv file ", err)
-	}
-	return data
-}
-
 func main() {
-	initialTime := time.Now()
+	// initialTime := time.Now()
 
-	data := readCsvFile("data/lookup_premise.csv")
+	// data := utils.ReadCsvFile("data/lookup_premise.csv")
 
-	premiseList := models.CreatePremiseList(data)
 
-	controllers.PrintPremiseList(premiseList)
+	// controllers.PrintPremiseList(premiseList)
 
-	fmt.Printf("Total rows iterated: %v\n", len(premiseList))
-	fmt.Printf("Time taken: %v\n", time.Now().Sub(initialTime))
+	// fmt.Printf("Total rows iterated: %v\n", len(premiseList))
+	// fmt.Printf("Time taken: %v\n", time.Now().Sub(initialTime))
+
+	// premiseList := models.GetPremiseList()
+	// fmt.Println(premiseList)
+
+	r := mux.NewRouter()
+	// register routes into mux router
+	routes.RegisterRoutes(r)
+
+	// start server
+	http.Handle("/", r)
+	log.Println("Starting server at localhost:8080")
+	r.Handle("/static/", http.FileServer(http.Dir("./static")))
+	http.ListenAndServe(":8080", r)
+
 }

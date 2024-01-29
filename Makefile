@@ -3,3 +3,6 @@ run:
 
 build:
 	@go build -o dist/ cmd/app/main.go
+
+watch-asset:
+	@npm run watch

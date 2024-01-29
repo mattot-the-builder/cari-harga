@@ -1,5 +1,7 @@
 package models
 
+import "github.com/mattot-the-builder/go-csv/internal/app/utils"
+
 type PriceCatcher struct {
 	Date        string
 	PremiseCode string
@@ -7,8 +9,17 @@ type PriceCatcher struct {
 	Price       string
 }
 
-func CreatePriceCatcherList(data [][]string) []PriceCatcher {
-	var priceCatcherList []PriceCatcher
+var priceCatcherList []PriceCatcher
+
+func init() {
+	CreatePriceCatcherList(utils.ReadCsvFile("data/pricecatcher_2024-01.csv"))
+}
+
+func GetPriceCatcherList() []PriceCatcher {
+	return priceCatcherList
+}
+
+func CreatePriceCatcherList(data [][]string) {
 	for i, line := range data {
 		if i > 0 {
 			var rec PriceCatcher
@@ -34,7 +45,5 @@ func CreatePriceCatcherList(data [][]string) []PriceCatcher {
 
 			priceCatcherList = append(priceCatcherList, rec)
 		}
-
 	}
-	return priceCatcherList
 }
