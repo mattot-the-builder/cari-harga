@@ -1,13 +1,15 @@
 package models
 
 import (
+	"log"
+	"strconv"
 	"strings"
 
 	"github.com/mattot-the-builder/go-csv/internal/app/utils"
 )
 
 type Premise struct {
-	PremiseCode string
+	PremiseCode int
 	Premise     string
 	Address     string
 	PremiseType string
@@ -35,15 +37,23 @@ func SearchPremise(keyword string) []Premise {
 	return searchResult
 }
 
-func CreatePremiseList(data [][]string) { 
+func CreatePremiseList(data [][]string) {
 	for i, line := range data {
-		if i > 0 {
+		if i > 1 && i < len(data)-1  {
 			var rec Premise
 
 			for j, field := range line {
 				switch j {
 				case 0:
-					rec.PremiseCode = field
+					parsedFloat, err := strconv.ParseFloat(field, 64)
+					if err != nil {
+						log.Println("Error parsing premise code", err)
+						break
+					}
+
+					parsedInt := int(parsedFloat)
+					rec.PremiseCode = parsedInt
+
 					break
 				case 1:
 					rec.Premise = field
@@ -64,6 +74,7 @@ func CreatePremiseList(data [][]string) {
 					break
 				}
 			}
+
 
 			premiseList = append(premiseList, rec)
 		}
