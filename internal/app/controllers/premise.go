@@ -20,12 +20,12 @@ func renderPremisePage(w http.ResponseWriter, data []models.Premise) {
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
-func GetAllPremise(w http.ResponseWriter, r *http.Request) {
+func HandleGetAllPremise(w http.ResponseWriter, r *http.Request) {
 	premiseList := models.GetPremiseList()
 	renderPremisePage(w, premiseList)
 }
 
-func SearchPremise(w http.ResponseWriter, r *http.Request) {
+func HandleSearchPremise(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		log.Println("Wrong method request")
 	}
