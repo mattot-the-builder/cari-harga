@@ -16,7 +16,6 @@ func renderItemPage(w http.ResponseWriter, data []models.Item) {
 	if err != nil {
 		log.Println("Error parsing templates", err)
 	}
-	log.Println(data[1])
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
